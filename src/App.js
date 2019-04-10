@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import openSocket from 'socket.io-client';
-const  socket = openSocket('http://localhost:8000');
+import socketIOClient from "socket.io-client";
+
 
 class App extends Component {
   constructor(props) {
@@ -15,7 +15,9 @@ class App extends Component {
       name: '',
       greeting: '',
       num_mozzies_killed:'',
-      time: ''
+      time: '',
+      endpoint: "localhost:3001",
+      color: 'white'
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,6 +39,25 @@ class App extends Component {
     console.log(boundGetX());
     // expected output: 42
    */
+
+  send = () => {
+    const socket = socketIOClient(this.state.endpoint);
+    socket.emit('change color', this.state.color) // change 'red' to this.state.color
+  }
+
+  // adding the function
+  setColor = (color) => {
+    this.setState({ color })
+  }
+
+  componentDidMount = () => {
+    const socket = socketIOClient(this.state.endpoint);
+    setInterval(this.send(), 1000)
+    socket.on('change color', (col) => {
+        document.body.style.backgroundColor = col
+    })
+  }
+
 
   handleChange(event) { //a function that changes state
     this.setState({ name: event.target.value, greeting: "lol" });
@@ -60,6 +81,10 @@ class App extends Component {
   // }
 
   render() {
+    const socket = socketIOClient(this.state.endpoint);
+    socket.on('change color', (col) => {
+      document.body.style.backgroundColor = col
+    })
     return (
       <div className="App">
         <header className="App-header">
@@ -67,6 +92,9 @@ class App extends Component {
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
+          <button onClick={() => this.send() }>Change Color</button>
+          <button id="blue" onClick={() => this.setColor('blue')}>Blue</button>
+          <button id="red" onClick={() => this.setColor('red')}>Red</button>
           <p>{this.state.time}</p>
           <form onSubmit={this.handleSubmit}> {/*if the user clicks on the text within the <label> element, it toggles the control.*/}
             <label htmlFor="name">Enter your name: </label>  {/*htmlFor, for is to indicate it belongs to id name*/}
@@ -88,6 +116,10 @@ class App extends Component {
             Learn React
           </a>
         </header>
+        <div style={{ textAlign: "center" }}>
+
+
+        </div>
       </div>
     );
   }
