@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>REHACKS 2019</title>
+  <link rel="icon" href="public/logo_black.png">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/499416/TweenLite.min.js"></script>
+  <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/499416/EasePack.min.js"></script>
+
+  <!--  -->
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md bg-custom navbar-dark fixed-top">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">REHACKS</a>
+
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#timeline">Timeline</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#prizes">Prizes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contact">Contact Us</a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="https://goo.gl/forms/rwt2XpuM5JIk8JQ12">Register</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <script>
+    $('.navbar-collapse a').click(function (e) {
+      $('.navbar-collapse').collapse('toggle');
+    });
+  </script>
+
+  <div class="container demo " id="large-header">
+    <canvas id="demo-canvas"></canvas>
+    <h1 class="main-title"><span style="font-weight: 100">RE</span> HACKS</h1>
+    <p class="details">4-5 March 2019<br>Nanyang Technological University<br>North Hill REP Room</p>
+    <a href="https://goo.gl/forms/rwt2XpuM5JIk8JQ12" class="button1">Register</a>
+  </div>
+  <div class="container-fluid bg-2" id="about">
+    <h2>About</h2>
+    <div class="row padding">
+      <div class="col-md-6">
+        <div class="card bg-2">
+          <img class="card-img-top" src="public/project.png">
+          <div class="card-body">
+            <h4 class="card-title">Project</h4>
+            <ul>
+              <li class="card-text">Teams will come up with projects related to the theme SmartCampus in NTU.</li>
+              <li class="card-text">Teams are encouraged to not reuse any projects and build something new! </li>
+              <li class="card-text">Projects will be judged based on Creativeness & Impressiveness, Usefulness,
+                Technical Difficulties, Business Potential, and Theme Relevance. </li>
+              <li class="card-text">Hardware hacks are welcome! Loaning of hardware parts are available upon request.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card bg-2">
+          <img class="card-img-top" src="public/team.png">
+          <div class="card-body">
+            <h4 class="card-title">Eligibility</h4>
+            <ul>
+              <li class="card-text">Any REP student from any specialisation is welcomed to participate. </li>
+              <li class="card-text">Admission is free for everyone and meals will be provided. (Only finale Lunch is
+                provided) </li>
+              <li class="card-text">Participants will form teams of at most 3 members.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid" id="timeline">
+    <h2>Event Timeline</h2>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th colspan="3">Day 1: February 16</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0900</td>
+                <td>1200</td>
+                <td>React Native Programming Workshop</td>
+              </tr>
+              <tr>
+                <td>1200</td>
+                <td>1300</td>
+                <td>Opening Address</td>
+              </tr>
+              <tr>
+                <td>1300</td>
+                <td></td>
+                <td>Start of Hackathon</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-6">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th colspan="3">Day 2: February 17</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1200</td>
+                <td></td>
+                <td>End of Hackathon & Submission</td>
+              </tr>
+              <tr>
+                <td>1200</td>
+                <td>1230</td>
+                <td>Lunch</td>
+              </tr>
+              <tr>
+                <td>1230</td>
+                <td>1330</td>
+                <td>Finale Presentation</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid bg-2" id="prizes">
+    <h2>Prizes</h2>
+    <h4>First Prize</h4>
+    <p>$200 Capitaland Vouchers</p>
+    <h4>Second Prize</h4>
+    <p>$100 Capitaland Vouchers</p>
+    <h4>Participant's Favourite</h4>
+    <p>$100 Capitaland Vouchers</p>
+  </div>
+
+  <div class="container-fluid" id="contact">
+    <h2>Contact Us</h2>
+    <p>Any questions? Drop us an email at zchua025@e.ntu.edu.sg</p>
+    <p>Organised by Renaissance Engineering Makers' Club </p>
+  </div>
+  <script src="demo-1.js"></script>
+</body>
+
+</html>

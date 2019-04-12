@@ -1,0 +1,136 @@
+html {
+    scroll-behavior: smooth;
+ }
+ 
+ body {
+    font-family: 'Open Sans';
+ }
+ 
+ @media (min-width: 992px) {
+    .navbar-brand {
+       margin-left: 3em;
+    }
+    .navbar li {
+       margin-left: 1em;
+       margin-right: 1em;
+    }
+ }
+ 
+ .demo {
+    position: relative;
+    background: #111;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center center;
+    z-index: 1;
+    max-height: 1000px;
+    max-width: 100%;
+    background-image: url("public/demo-bg.jpg");
+ }
+ 
+ .main-title {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    color: #000000;
+    text-align: center;
+    top: 35%;
+    left: 50%;
+    text-transform: uppercase;
+    font-size: 4.2em;
+    letter-spacing: 0.1em;
+    -webkit-transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(-50%, -50%, 0);
+ }
+ 
+ .details {
+    position: absolute;
+    margin-top: 100px;
+    padding: 0;
+    color: #000000;
+    text-align: center;
+    top: 35%;
+    left: 50%;
+    -webkit-transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(-50%, -50%, 0);
+ }
+ 
+ a.button1 {
+    display: inline-block;
+    padding: 0.1em 1.2em;
+    border: 0.1em solid #000000;
+    border-radius: 0.12em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-size: 2.2em;
+    letter-spacing: 0.1em;
+    font-weight: 200;
+    color: #000000;
+    text-align: center;
+    transition: all 0.2s;
+    position: absolute;
+    margin-top: 200px;
+    text-align: center;
+    top: 35%;
+    left: 50%;
+    -webkit-transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(-50%, -50%, 0);
+ }
+ 
+ a.button1:hover {
+    color: #000000;
+    background-color: #000000;
+ }
+ 
+ @media only screen and (max-width:850px) {
+    a.button1 {
+       display: inline-block;
+       font-size: 2.1em;
+    }
+    .details {
+       font-size: 0.9em; 
+    }
+    .main-title {
+       font-size: 3em;
+    }
+ }
+ 
+ .bg-custom {
+    background-color: #111;
+ }
+ 
+ .bg-2 {
+    background-color: #000000;
+ }
+ 
+ .container-fluid {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    font-family: 'Open Sans', sans-serif;
+ }
+ 
+ h2 {
+    text-align: center;
+    padding-bottom: 25px;
+ }
+ 
+ h4 {
+    text-align: center;
+    padding-bottom: 10px;
+ }
+ 
+ p {
+    text-align: center;
+ }
+ 
+ .card {
+    border: none;
+ }
+ 
+ .card-img-top {
+    width: 128px;
+    height: 128px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+ }

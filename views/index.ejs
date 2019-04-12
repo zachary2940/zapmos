@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>zap Plot</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>zap Graph</h1>
+        <h4>Date: <span id="date"></span></h4>
+        <div class="chart-container" style="position: relative; width:75vw; margin: auto;">
+            <canvas id="myChart"></canvas>
+        </div>
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+        <script>
+            var socket = io.connect('http://localhost:4000'); //connect to server
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+                // The data for our dataset
+                data: {
+                labels: [],
+                datasets: [{
+                    label: "zap",
+                    borderColor: "#FF5733",
+                    data: [], // for zap data
+                    fill: false,
+                    pointStyle: 'circle',
+                    backgroundColor: '#3498DB',
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    lineTension: 0,
+                }]
+                },
+                // Configuration options go here
+                options: {}
+                
+            });
+            socket.on('zap', data => { //As a zap data is received 
+                console.log(data.zap);
+                document.getElementById('date').innerHTML = data.date; //update the date
+                if(chart.data.labels.length != 15) { //If we have less than 15 data points in the graph
+                    chart.data.labels.push(data.time);  //Add time in x-asix
+                    chart.data.datasets.forEach((dataset) => {
+                        dataset.data.push(data.zap); //Add zap in y-axis
+                    });
+                }
+                else { //If there are already 15 data points in the graph.
+                    chart.data.labels.shift(); //Remove first time data
+                    chart.data.labels.push(data.time); //Insert latest time data
+                    chart.data.datasets.forEach((dataset) => {
+                        dataset.data.shift(); //Remove first zap data
+                        dataset.data.push(data.zap); //Insert latest zap data
+                    });
+                }
+                chart.update(); //Update the graph.
+            });
+        </script>
+    </body>
+    <style>
+        h1 {
+            text-align: center;
+            font-family: 'Lato', sans-serif;
+        }
+        h4 {
+            text-align: center;
+            font-family: 'Lato', sans-serif;
+        }
+        p {
+            text-align: center;
+            font-family: 'Lato', sans-serif;
+        }
+    </style>
+</html>

@@ -1,58 +1,31 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const pino = require('express-pino-logger')();
+var express = require('express');
 
-const app = express();
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(pino);
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
-const port = 3001
+var app = express();
 
-app.get('/api/greeting', (req, res) => {
-  const name = req.query.name || 'World';
-  var today = new Date();
-  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({ greeting: `Hello ${name}!`, time : time}));
+
+var path = require('path');
+app.set('view engine', 'ejs');
+// viewed at http://localhost:8080
+app.get('/', function(req, res) {
+    res.render('/React_projects/zapmos/public/index');
 });
 
-// This creates our socket using the instance of the server
-send = () => {
-  const socket = socketIOClient("localhost:3001");
-  socket.emit('mosquito zapped', this.state.color) // change 'red' to this.state.color
-}
-
-
-// This is what the socket.io syntax is like, we will work this later
-io.on('connection', socket => {
-  console.log('User connected')
-  //socket is a callback function that is defined here with a method on() that executes
-  //on(event, callback), first parameter is a keyword
-    // just like on the client side, we have a socket.on method that takes a callback function
-    socket.on('change color', (color) => {
-      // once we get a 'change color' event from one of our clients, we will send it to the rest of the clients
-      // we make use of the socket.emit method again with the argument given to use from the callback function above
-      console.log('Color Changed to: ', color)
-      io.sockets.emit('change color', color)
-  })
-  socket.on('disconnect', () => {
-    console.log('user disconnected')
-  })
+var server = app.listen(4000, () => { //Start the server, listening on port 4000.
+    console.log("Listening to requests on port 4000...");
 })
 
+var io = require('socket.io')(server); //Bind socket.io to our express server.
 
-server.listen(port, () => console.log(`Listening on port ${port}`))
-//res is response
+const SerialPort = require('serialport'); 
+const Readline = SerialPort.parsers.Readline;
+const port = new SerialPort('COM3'); //Connect serial port to port COM3. Because my Arduino Board is connected on port COM3. See yours on Arduino IDE -> Tools -> Port
+const parser = port.pipe(new Readline({delimiter: '\r\n'})); //Read the line only when new line comes.
+parser.on('data', (zap) => { //Read data
+    console.log(zap);
+    var today = new Date();
+    io.sockets.emit('zap', {date: today.getDate()+"-"+4+"-"+today.getFullYear(), time: (today.getHours())+":"+(today.getMinutes()), zap:zap}); //emit the datd i.e. {date, time, zap} to all the connected clients.
+});
 
-//Routing refers to how an application’s endpoints (URIs) respond to client requests. For an introduction to routing, see Basic routing.
-/*
-req.params contains route parameters (in the path portion of the URL), and req.query contains the URL query parameters (after the ? in the URL).*/ 
-
-//sending data is not really functional yet
-// app.post('/', (req,res)=>{
-
-//   res.setHeader('Content-Type', 'application/json');
-//   res.send(JSON.stringify({time: 'hi'}));
-// })
-
+io.on('connection', (socket) => {
+    console.log("Someone connected."); //show a log as a new client connects.
+})
