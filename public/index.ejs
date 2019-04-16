@@ -9,49 +9,97 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     </head>
     <body>
-        <!-- <div>
-            <nav class="navbar navbar-inverse" role="navigation" style="padding-left:130px;">
-                <ul class="nav navbar-nav">
-                <li class="active"><a href="/">Home<span class="sr-only">(current)</span></a></li>
-                <li><a href="/about">About us</a></li>
-                <li><a href="/contact">Contact us</a></li>
-                </ul>
-            </nav>
-        </div> -->
-        <h1>Zap Graph</h1>
-        <h4>Date: <span id="date"></span></h4>
-        <div class="chart-container" style="position: relative; width:75vw; margin: auto;">
-            <canvas id="myChart"></canvas>
+        <div class="view-container">
+            <div class="header-container">
+                <h1 class="title">
+                    <span class="one">MOZZIE</span> 
+                    <span class="two">ZAPPER</span>
+                </h1>
+                <p class="description">A design project for RE2012.</p>
+            </div>
+
+            <div class="row highlight">
+                    <!-- <div class="col-md-12"> -->
+                        <h2 class="date-outer">On <span id="date">12 Apr 2019</span>, 
+                    <!-- </h4> -->
+                    <!-- </div> -->
+                    <!-- <div class="col-md-12"> -->
+                        <!-- <h2 class="count-outer">
+                            Total count:  -->
+                        <b>
+                            <span id="count">
+
+                            </span>
+                        </b>
+                        mozzies were zapped.
+                    </h4>
+                    <!-- </div> -->
+                </div>
+            <div class="chart-container">
+
+                <canvas id="myChart"></canvas>
+            </div>
         </div>
 
         <script>
-            var socket = io.connect('172.22.169.91:4000'); //connect to server
+            var socket = io.connect('10.27.77.252:4000'); //connect to server
             var ctx = document.getElementById('myChart').getContext('2d');
             var chart = new Chart(ctx, {
                 // The type of chart we want to create
                 type: 'bar',
                 // The data for our dataset
                 data: {
-                labels: ['9:00','10:00','11:00','12:00'],
+                labels: ['9:00','10:00','11:00','12:00','13:00', '14:00','15:00'],
                 datasets: [{
-                    label: "Mosquitoes zapped",
-                    borderColor: "#FF5733",
-                    data: [20,14,10,5], // for zap data
+                    label: "Count",
+                    borderColor: "transparent",
+                    data: [20,14,10,4,7,18,30], // for zap data
                     fill: false,
-                    pointStyle: 'circle',
-                    backgroundColor: '#3498DB',
-                    pointRadius: 5,
-                    pointHoverRadius: 7,
-                    lineTension: 0,
+                    // pointStyle: 'circle',
+                    backgroundColor: '#d3e3fc',
+                    // pointRadius: 5,
+                    // pointHoverRadius: 7,
+                    // lineTension: 0,
                 }]
                 },
                 // Configuration options go here
-                options: {}
+                options: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            fontColor: '#ffffff',
+                            fontFamily: "Lato",
+                        }
+                    },
+                    scales: {
+                        xAxes: [{ 
+                            gridLines: {
+                                display: false,
+                            },
+                            ticks: {
+                            fontColor: "#ffffff", // this here
+                            },
+                        }],
+                        yAxes: [{
+                            // display: false,
+                            gridLines: {
+                                // display: false,
+                            },
+                            ticks: {
+                                fontColor: "#ffffff", // this here
+                            },
+                        }],
+                    }
+
+
+                }
                 
             });
             var ylabel = chart.data.labels
@@ -72,22 +120,114 @@
                     });
                 }
                 chart.update(); //Update the graph.
+                var countArray = chart.data.datasets[0].data;
+                var totalCount = countArray.reduce((total, num) => total + num);
+                $("#count").html(totalCount);
             });
+
+            var countArray = chart.data.datasets[0].data;
+            var totalCount = countArray.reduce((total, num) => total + num);
+            $("#count").html(totalCount);
         </script>
+
+
     </body>
     
     <style>
-        h1 {
+        body {
             text-align: center;
-            font-family: 'Lato', sans-serif;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #77a6f7;
+            color: white;
+            width: 100%;
+            overflow-x: hidden;
         }
-        h4 {
+        .header-container {
+            padding-top: 120px;
+            padding-bottom: 80px;
+            width: 100%;
+        }
+        .title {
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            line-height: 1.5;
+            font-size: 76px;
+            padding-top: 20px;
+            margin-bottom: 0px;
+        }
+        .description {
+            font-family: Lato;
+            padding-top: 10px;
+            font-size: 1.2em;
+            opacity: 0.7;
+            padding-bottom: 50px;
+        }
+        @media only screen and (min-width: 768px) {
+            .one {
+                display: inline-block;  
+                transform: translate(30px, -30px);
+            }
+            .two {
+                display: inline-block;
+                transform: translate(-30px, 50px);
+            }
+            .description {
+                padding-top: 70px;
+            }
+
+        }
+        .highlight {
+            background-color: #374785;
+            color: white;
+        }
+        /* .view-container {
+            padding: 20px;
+        } */
+        .date-outer, .count-outer {
+            /* font-family: Lato; */
+            padding: 80px 20px 80px 20px;
+            font-size: 18px;
             text-align: center;
-            font-family: 'Lato', sans-serif;
+            margin: unset;
+            letter-spacing: 3px;
+            line-height: 2;
         }
-        p {
-            text-align: center;
-            font-family: 'Lato', sans-serif;
+        .chart-container {
+            position: relative; 
+            margin: auto;
         }
+        #count {
+            font-size: 80px;
+            color: #d3e3fc;
+        }
+        #myChart {
+            margin: auto;
+            margin-top: 100px;
+            margin-bottom: 100px;
+            max-width: 1000px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .title {
+                letter-spacing: 0.15em;
+                line-height: 1.5;
+                font-size: 28px;
+            }
+            .description {
+                font-size: 14px;
+            }
+            .date-outer, .count-outer {
+                font-size: 12px;
+                margin: unset;
+
+            }
+            #count {
+                font-size: 24px;
+            }
+            
+        }
+
     </style>
 </html>
