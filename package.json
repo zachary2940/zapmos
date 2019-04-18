@@ -5,6 +5,7 @@
   "dependencies": {
     "ejs": "^2.6.1",
     "es6-promise": "^4.2.6",
+    "fast-csv": "^2.4.1",
     "isomorphic-fetch": "^2.2.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -12,7 +13,9 @@
     "react-table": "^6.9.2",
     "serialport": "^7.1.4",
     "socket.io": "^2.2.0",
-    "socket.io-client": "^2.2.0"
+    "socket.io-client": "^2.2.0",
+    "sweetalert": "^2.1.2",
+    "window-date-picker": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

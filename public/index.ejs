@@ -14,20 +14,24 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </head>
     <body>
         <div class="view-container">
             <div class="header-container">
                 <h1 class="title">
-                    <span class="one">MOZZIE</span> 
-                    <span class="two">ZAPPER</span>
+                    <span class="one">Zap</span> 
+                    <span class="two">mos</span>
                 </h1>
                 <p class="description">A design project for RE2012.</p>
             </div>
 
             <div class="row highlight">
+                    <h1 class="title">
+                            <span>Our Analytics Dashboard</span> 
+                        </h1>
                     <!-- <div class="col-md-12"> -->
-                        <h2 class="date-outer">On <span id="date">12 Apr 2019</span>, 
+                        <h2 class="date-outer">As of <span id="date"></span>, 
                     <!-- </h4> -->
                     <!-- </div> -->
                     <!-- <div class="col-md-12"> -->
@@ -42,13 +46,25 @@
                     </h4>
                     <!-- </div> -->
                 </div>
-            <div class="chart-container">
-
+            <div class="chart-container">             
+                <p>Date: <input type="date" id="datepicker"></p><button onclick="changeChart">choose</button>
                 <canvas id="myChart"></canvas>
             </div>
         </div>
 
         <script>
+            changeChart()=>{
+                chosenDate=document.getElementById("datepicker")
+                ylabel=//use chosenDate as key t0 load value
+            }
+            swal({
+            title: "Mosquito Killed!",
+            text: "Graph has been updated",
+            icon: "success",
+            button: "Ok!",
+            });
+            // <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            // <a class="next" onclick="plusSlides(1)">&#10095;</a>
             var socket = io.connect('10.27.77.252:4000'); //connect to server
             var ctx = document.getElementById('myChart').getContext('2d');
             var chart = new Chart(ctx, {
@@ -58,12 +74,12 @@
                 data: {
                 labels: ['9:00','10:00','11:00','12:00','13:00', '14:00','15:00'],
                 datasets: [{
-                    label: "Count",
+                    label: "Mosquitoes Zapped",
                     borderColor: "transparent",
-                    data: [20,14,10,4,7,18,30], // for zap data
+                    data: [14,8,5,4,9,17,19], // for zap data
                     fill: false,
                     // pointStyle: 'circle',
-                    backgroundColor: '#d3e3fc',
+                    backgroundColor: '#880606',
                     // pointRadius: 5,
                     // pointHoverRadius: 7,
                     // lineTension: 0,
@@ -91,9 +107,11 @@
                             // display: false,
                             gridLines: {
                                 // display: false,
+                                color: "#ffffff",
                             },
                             ticks: {
                                 fontColor: "#ffffff", // this here
+                                beginAtZero: true,
                             },
                         }],
                     }
@@ -123,11 +141,30 @@
                 var countArray = chart.data.datasets[0].data;
                 var totalCount = countArray.reduce((total, num) => total + num);
                 $("#count").html(totalCount);
+                swal({
+                title: "Mosquito Killed!",
+                text: "Graph has been updated",
+                icon: "success",
+                button: "Aww yiss!",
+                });
             });
-
+            var today = new Date();
+            var date = today.getDate()+"-"+4+"-"+today.getFullYear()
+            $("#date").html(date)
+            
             var countArray = chart.data.datasets[0].data;
             var totalCount = countArray.reduce((total, num) => total + num);
             $("#count").html(totalCount);
+
+            if(totalCount>100){
+                swal({
+                title: "Mosquito Hotspot Detected!",
+                text: "NEA has been alerted",
+                icon: "error",
+                button: "Ok",
+                });
+            }
+            
         </script>
 
 
@@ -137,7 +174,7 @@
         body {
             text-align: center;
             font-family: 'Montserrat', sans-serif;
-            background-color: #77a6f7;
+            background-color:#1a1d31;
             color: white;
             width: 100%;
             overflow-x: hidden;
@@ -177,7 +214,7 @@
 
         }
         .highlight {
-            background-color: #374785;
+            background-color: #880606;
             color: white;
         }
         /* .view-container {
@@ -198,7 +235,7 @@
         }
         #count {
             font-size: 80px;
-            color: #d3e3fc;
+            color: #ffffff;
         }
         #myChart {
             margin: auto;

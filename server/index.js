@@ -6,7 +6,7 @@ var app = express();
 var path = require('path');
 app.set('view engine', 'ejs');
 app.get('/', function(req, res) {
-    res.render('/home/pi/Desktop/zapmos/public/index');
+    res.render('D://React_projects//zapmos//public//index');
 });
 
 var server = app.listen(4000, () => { //Start the server, listening on port 4000.
